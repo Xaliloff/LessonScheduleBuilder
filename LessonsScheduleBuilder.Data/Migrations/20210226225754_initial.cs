@@ -63,7 +63,7 @@ namespace LessonsScheduleBuilder.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     LessonTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     LessonTypeId = table.Column<int>(type: "int", nullable: false),
                     SelectedTeacherId = table.Column<int>(type: "int", nullable: false),
