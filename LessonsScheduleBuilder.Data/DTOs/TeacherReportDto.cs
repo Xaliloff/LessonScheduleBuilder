@@ -8,6 +8,6 @@ namespace LessonsScheduleBuilder.Data.DTOs
 {
     public class TeacherReportDto
     {
-        
+        public string MostBusyTeacher { get; set; }
     }
 }
