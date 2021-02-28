@@ -11,6 +11,11 @@ namespace LessonsScheduleBuilder.Data.Models
         public DayOfTheWeek DayOfTheWeek { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan LessonTime { get; set; }
+        public TimeSpan EndTime { get
+            {
+                return StartTime + LessonTime;
+            }
+        }
         public int LessonTypeId { get; set; }
         public LessonType LessonType { get; set; }
         public int GroupId { get; set; }

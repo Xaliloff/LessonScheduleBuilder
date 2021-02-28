@@ -7,6 +7,7 @@ namespace LessonsScheduleBuilder.Logic.DTOs
     {
         public T Body { get; set; }
         public List<ErrorModel> Errors { get; set; }
+
         public bool HasError
         {
             get
@@ -33,15 +34,14 @@ namespace LessonsScheduleBuilder.Logic.DTOs
 
         public ResponseDto(string errorText)
         {
-            Errors = new List<ErrorModel>() { new ErrorModel(0, errorText) };
+            Errors = new List<ErrorModel>() { new ErrorModel(errorText) };
         }
     }
 
     public class ErrorModel
     {
-        public ErrorModel(int code, string message)
+        public ErrorModel(string message)
         {
-            Code = code;
             Message = message;
         }
 

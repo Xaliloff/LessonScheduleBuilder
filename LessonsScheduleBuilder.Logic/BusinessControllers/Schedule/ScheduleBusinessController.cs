@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using LessonsScheduleBuilder.Data;
 using LessonsScheduleBuilder.Data.Models;
+using LessonsScheduleBuilder.Logic.BusinessControllers.Schedule.Validations;
 using LessonsScheduleBuilder.Logic.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -14,11 +15,13 @@ namespace LessonsScheduleBuilder.Logic.BusinessControllers.Schedule
     {
         private readonly AppDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly IScheduledLessonValidation _scheduleValidation;
 
-        public ScheduleBusinessController(AppDbContext dbContext, IMapper mapper)
+        public ScheduleBusinessController(AppDbContext dbContext, IMapper mapper, IScheduledLessonValidation scheduleValidation)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _scheduleValidation = scheduleValidation;
         }
 
         public async Task<IEnumerable<ScheduleLessonDto>> Get(int groupId)
@@ -44,9 +47,10 @@ namespace LessonsScheduleBuilder.Logic.BusinessControllers.Schedule
         public async Task<ResponseDto<ScheduleLessonDto>> Add(ScheduleLessonDto dto)
         {
             var scheduleLesson = _mapper.Map<ScheduleLesson>(dto);
-            //check if there is lesson at the same time for selected teacher
-            //check if there is lesson at the same time for selected group
 
+            var errors = await _scheduleValidation.ValidateAsync(scheduleLesson);
+            if (errors.Any()) return new ResponseDto<ScheduleLessonDto>(errors);
+            
 
             await _dbContext.ScheduleLessons.AddAsync(scheduleLesson);
             await _dbContext.SaveChangesAsync();
@@ -56,13 +60,14 @@ namespace LessonsScheduleBuilder.Logic.BusinessControllers.Schedule
 
         public async Task<ResponseDto<ScheduleLessonDto>> Update(ScheduleLessonDto dto)
         {
-            //check if there is lesson at the same time for selected teacher
-            //check if there is lesson at the same time for selected group
             var scheduleLessonInDb = await _dbContext.ScheduleLessons.FirstAsync(x => x.Id == dto.Id);
 
             scheduleLessonInDb.StartTime = dto.StartTime;
             scheduleLessonInDb.DayOfTheWeek = dto.DayOfTheWeek;
             scheduleLessonInDb.SelectedTeacherId = dto.SelectedTeacherId;
+
+            var errors = await _scheduleValidation.ValidateAsync(scheduleLessonInDb);
+            if (errors.Any()) return new ResponseDto<ScheduleLessonDto>(errors);
 
             _dbContext.ScheduleLessons.Update(scheduleLessonInDb);
             await _dbContext.SaveChangesAsync();

@@ -11,7 +11,7 @@ namespace LessonsScheduleBuilder.Data
 {
     public static class DataServicesCollection
     {
-        public static void Register(IServiceCollection services, IConfiguration configuration)
+        public static void RegisterDataServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Default")));
 

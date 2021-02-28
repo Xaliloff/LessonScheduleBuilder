@@ -28,9 +28,9 @@ namespace LessonsScheduleBuilder.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            ApiServicesCollection.Register(services);
-            LogicServicesCollection.Register(services);
-            DataServicesCollection.Register(services, Configuration);
+            services.RegisterAPIServices();
+            services.RegisterBusinessServices();
+            services.RegisterDataServices(Configuration);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
