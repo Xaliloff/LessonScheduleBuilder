@@ -8,6 +8,8 @@ namespace LessonsScheduleBuilder.Data.Models
         public short Grade { get; set; }
         public string GroupSuffix { get; set; }
         public string Field1 { get; set; }
+        public string Field3 { get; set; }
+
         public string GroupName
         {
             get
