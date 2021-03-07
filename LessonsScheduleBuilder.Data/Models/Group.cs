@@ -7,7 +7,7 @@ namespace LessonsScheduleBuilder.Data.Models
         public int Id { get; set; }
         public short Grade { get; set; }
         public string GroupSuffix { get; set; }
-
+        public string Field2 { get; set; }
         public string GroupName
         {
             get
