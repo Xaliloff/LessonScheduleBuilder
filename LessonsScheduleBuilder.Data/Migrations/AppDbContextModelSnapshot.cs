@@ -26,12 +26,6 @@ namespace LessonsScheduleBuilder.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Field2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Field1")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<short>("Grade")
                         .HasColumnType("smallint");
 

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LessonsScheduleBuilder.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210226233001_addedGroupIdToScheduleLEsson")]
-    partial class addedGroupIdToScheduleLEsson
+    [Migration("20210307224310_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,6 +61,9 @@ namespace LessonsScheduleBuilder.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("DayOfTheWeek")
+                        .HasColumnType("int");
+
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
 
@@ -73,8 +76,8 @@ namespace LessonsScheduleBuilder.Data.Migrations
                     b.Property<int>("SelectedTeacherId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
 
                     b.HasKey("Id");
 
